@@ -1,0 +1,12 @@
+[submodule "apetag"]
+	path = apetag
+	url = https://aur.archlinux.org/apetag.git
+[submodule "imgur-uploader-git"]
+	path = imgur-uploader-git
+	url = https://aur.archlinux.org/imgur-uploader-git.git
+[submodule "gmsl"]
+	path = gmsl
+	url = https://aur.archlinux.org/gmsl.git
+[submodule "python-hddfancontrol"]
+	path = python-hddfancontrol
+	url = https://aur.archlinux.org/python-hddfancontrol.git
