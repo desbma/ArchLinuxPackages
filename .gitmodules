@@ -8,5 +8,5 @@
 	path = gmsl
 	url = https://aur.archlinux.org/gmsl.git
 [submodule "python-hddfancontrol"]
-	path = python-hddfancontrol
+	path = hddfancontrol
 	url = https://aur.archlinux.org/python-hddfancontrol.git
