@@ -10,3 +10,9 @@
 [submodule "python-hddfancontrol"]
 	path = hddfancontrol
 	url = https://aur.archlinux.org/python-hddfancontrol.git
+[submodule "debmirror"]
+	path = debmirror
+	url = https://aur.archlinux.org/debmirror.git
+[submodule "perl-lockfile-simple"]
+	path = perl-lockfile-simple
+	url = https://aur.archlinux.org/perl-lockfile-simple.git
