@@ -16,3 +16,6 @@
 [submodule "perl-lockfile-simple"]
 	path = perl-lockfile-simple
 	url = https://aur.archlinux.org/perl-lockfile-simple.git
+[submodule "bpm-tools"]
+	path = bpm-tools
+	url = https://aur.archlinux.org/bpm-tools.git

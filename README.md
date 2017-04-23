@@ -3,6 +3,7 @@
 This is a mirror of [the Arch Linux AUR packages I maintain](https://aur.archlinux.org/packages/?SeB=m&K=desbma).
 
 * [apetag](https://aur.archlinux.org/packages/apetag/): A command line APE 2.0 tagger
+* [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
 * [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian package mirror tool
 * [perl-lockfile-simple](https://aur.archlinux.org/packages/perl-lockfile-simple/): Perl dependency of debmirror
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
