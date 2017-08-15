@@ -7,9 +7,9 @@
 [submodule "gmsl"]
 	path = gmsl
 	url = https://aur.archlinux.org/gmsl.git
-[submodule "python-hddfancontrol"]
+[submodule "hddfancontrol"]
 	path = hddfancontrol
-	url = https://aur.archlinux.org/python-hddfancontrol.git
+	url = https://aur.archlinux.org/hddfancontrol.git
 [submodule "debmirror"]
 	path = debmirror
 	url = https://aur.archlinux.org/debmirror.git
