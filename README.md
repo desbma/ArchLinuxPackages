@@ -1,4 +1,5 @@
-## Arch Linux Packages
+Arch Linux Packages
+===================
 
 This is a directory of [the Arch Linux AUR packages I maintain](https://aur.archlinux.org/packages/?SeB=m&K=desbma).
 
