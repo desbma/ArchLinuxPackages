@@ -22,3 +22,6 @@
 [submodule "mpv-scripts"]
 	path = mpv-scripts
 	url = https://aur.archlinux.org/mpv-scripts.git
+[submodule "abchr"]
+	path = abchr
+	url = https://aur.archlinux.org/abchr.git
