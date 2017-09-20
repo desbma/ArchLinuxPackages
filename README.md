@@ -10,3 +10,4 @@ This is a directory of [the Arch Linux AUR packages I maintain](https://aur.arch
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
 * [hddfancontrol](https://aur.archlinux.org/packages/hddfancontrol/): Daemon to regulate fan speed according to hard drive temperature
 * [mpv-scripts](https://aur.archlinux.org/packages/mpv-scripts/): Scripts for the mpv media player
+* [r128gain](https://aur.archlinux.org/packages/r128gain/): Fast audio loudness (ReplayGain / R128) scanner & tagger

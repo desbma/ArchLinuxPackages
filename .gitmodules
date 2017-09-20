@@ -19,3 +19,6 @@
 [submodule "abchr"]
 	path = abchr
 	url = https://aur.archlinux.org/abchr.git
+[submodule "r128gain"]
+	path = r128gain
+	url = https://aur.archlinux.org/r128gain.git
