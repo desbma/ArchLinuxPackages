@@ -22,3 +22,6 @@
 [submodule "r128gain"]
 	path = r128gain
 	url = https://aur.archlinux.org/r128gain.git
+[submodule "sacad"]
+	path = sacad
+	url = https://aur.archlinux.org/sacad.git

@@ -11,3 +11,4 @@ This is a directory of [the Arch Linux AUR packages I maintain](https://aur.arch
 * [hddfancontrol](https://aur.archlinux.org/packages/hddfancontrol/): Daemon to regulate fan speed according to hard drive temperature
 * [mpv-scripts](https://aur.archlinux.org/packages/mpv-scripts/): Scripts for the mpv media player
 * [r128gain](https://aur.archlinux.org/packages/r128gain/): Fast audio loudness (ReplayGain / R128) scanner & tagger
+* [sacad](https://aur.archlinux.org/packages/sacad/): Smart Automatic Cover Art Downloader
