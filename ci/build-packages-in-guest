@@ -3,6 +3,7 @@
 set -o pipefail
 
 readonly ISO_DIR=${1:-$HOME/arch-linux}
+readonly PACKAGES_DIR=${1:-$HOME/arch-linux-pkg}
 
 readonly SERIAL_TCP_PORT=11111
 readonly SSH_TCP_PORT=10022
@@ -48,6 +49,7 @@ fi
 
 # now start it
 sudo killall qemu-system-x86_64 || true
+mkdir -p "$PACKAGES_DIR"
 set +o pipefail
 if [ "$(lsmod | grep kvm)" ]
 then
@@ -59,6 +61,7 @@ set +o pipefail
 qemu-system-x86_64 $kvm_opt \
                    -m 2G \
                    -cdrom "$iso_file" \
+                   -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-xattr \
                    -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
                    -serial "tcp:127.0.0.1:$SERIAL_TCP_PORT,server,nodelay" \
                    -nographic &> "$TMP_DIR/qemu.log" &
@@ -121,6 +124,7 @@ sshpass -p a ssh-copy-id $ssh_opts root@127.0.0.1
 guest() {
   ssh $ssh_opts root@127.0.0.1 $@
 }
+guest mount -t 9p archpkg /var/cache/pacman/pkg
 guest mount -o remount,size=1G /run/archiso/cowspace
 set +o pipefail
 yes '' | guest pacman -Sy --needed base-devel git

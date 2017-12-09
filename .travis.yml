@@ -4,6 +4,7 @@ language: c
 cache:
   directories:
     - $HOME/arch-linux
+    - $HOME/arch-linux-pkg
 addons:
   apt:
     packages:
