@@ -1,0 +1,13 @@
+dist: trusty
+sudo: false
+language: c
+cache:
+  directories:
+    - $HOME/arch-linux
+addons:
+  apt:
+    packages:
+      - sshpass
+      - qemu-kvm
+script:
+  - "./ci/build-packages-in-guest"

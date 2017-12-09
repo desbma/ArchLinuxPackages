@@ -1,5 +1,6 @@
 Arch Linux Packages
 ===================
+[![Build status](https://img.shields.io/travis/desbma/ArchLinuxPackages/master.svg?label=build&style=flat)](https://travis-ci.org/desbma/ArchLinuxPackages)
 
 This is a directory of [the Arch Linux AUR packages I maintain](https://aur.archlinux.org/packages/?SeB=m&K=desbma).
 

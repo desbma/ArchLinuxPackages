@@ -1,0 +1,155 @@
+#!/bin/bash -eux
+
+set -o pipefail
+
+readonly ISO_DIR=${1:-$HOME/arch-linux}
+
+readonly SERIAL_TCP_PORT=11111
+readonly SSH_TCP_PORT=10022
+
+# auto cleanup
+at_exit() {
+  set +u
+  rm -Rf "$TMP_DIR"
+  set -u
+}
+trap at_exit EXIT
+
+readonly TMP_DIR=$(mktemp -d /tmp/$(basename -- $0).XXXXXXXXXX)
+
+cd "$(dirname -- $0)"
+
+
+# check if we have latest iso
+curl -sL https://www.archlinux.org/download/ > "${TMP_DIR}/arch.html"
+last_iso_version=$(grep -F 'Current Release:' "${TMP_DIR}/arch.html" | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')
+iso_file="$ISO_DIR/archlinux-${last_iso_version}-x86_64.iso"
+
+if [ ! -f "$iso_file" ]
+then
+  # remove previous iso
+  rm -f "$ISO_DIR"/*.iso
+
+  # download latest iso
+  if [ "$(which transmission-cli)" ]
+  then
+    magnet_link=$(grep -Eo 'href="magnet:[^"]+"' "${TMP_DIR}/arch.html" | cut -d '"' -f 2)
+    echo -e "#/bin/sh\nkillall transmission-cli" > "$TMP_DIR/kill-transmission"
+    chmod +x "$TMP_DIR/kill-transmission"
+    transmission-cli -f "$TMP_DIR/kill-transmission" -w "$ISO_DIR" "$magnet_link" || true
+  else
+    filename=$(basename $(grep -Eo "https://.*\.iso" "${TMP_DIR}/arch.html"))
+    set +o pipefail
+    mirror=$(grep -Eo 'https://.*iso.*/"' "${TMP_DIR}/arch.html" | head -n 3 | tail -n 1 | sed 's/"$//')
+    set -o pipefail
+    curl -fL "${mirror}${filename}" > "${ISO_DIR}/${filename}"
+  fi
+fi
+
+# now start it
+sudo killall qemu-system-x86_64 || true
+set +o pipefail
+if [ "$(lsmod | grep kvm)" ]
+then
+  kvm_opt=-enable-kvm
+else
+  kvm_opt=
+fi
+set +o pipefail
+qemu-system-x86_64 $kvm_opt \
+                   -m 2G \
+                   -cdrom "$iso_file" \
+                   -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
+                   -serial "tcp:127.0.0.1:$SERIAL_TCP_PORT,server,nodelay" \
+                   -nographic &> "$TMP_DIR/qemu.log" &
+qemu_pid=$!
+sleep 2s
+cat "$TMP_DIR/qemu.log"
+
+# boot guest & start sshd
+if [ "$kvm_opt" ]
+then
+  ( sleep 2s;
+    echo -en "\t  console=ttyS0\r";
+    sleep 20s;
+    echo "root";
+    sleep 0.5s;
+    echo "passwd";
+    sleep 0.5s;
+    echo "a";
+    sleep 0.5s;
+    echo -e "a\nsystemctl start sshd" ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
+  sleep 25s
+else
+  ( sleep 2s;
+    echo -en "\t  console=ttyS0\r";
+    sleep 150s;
+    echo "root";
+    sleep 70s;
+    echo "passwd";
+    sleep 5s;
+    echo "a";
+    sleep 5s;
+    echo "a";
+    sleep 5s;
+    echo "systemctl start sshd";
+    sleep 15s ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
+  sleep 250s
+fi
+kill $! || true
+
+# generate & upload public key
+set +u
+if [ "$CI" -a "$TRAVIS" ]
+then
+  set -u
+  # travis environment lacks the random entropy needed to generate keys
+  # not to scripts kiddies looking for private keys in repos: don't waste your time, this one is useless
+  cp dummy-key $TMP_DIR/ssh_key
+  cp dummy-key.pub $TMP_DIR/ssh_key.pub
+  chmod 600 $TMP_DIR/ssh_key*
+else
+  set -u
+  set +o pipefail
+  yes '' | ssh-keygen -f $TMP_DIR/ssh_key
+  set -o pipefail
+fi
+ssh_opts="-i $TMP_DIR/ssh_key -p $SSH_TCP_PORT -o UserKnownHostsFile=$TMP_DIR/known_hosts -o StrictHostKeyChecking=no"
+sshpass -p a ssh-copy-id $ssh_opts root@127.0.0.1
+
+# install needed build dependencies
+guest() {
+  ssh $ssh_opts root@127.0.0.1 $@
+}
+guest mount -o remount,size=1G /run/archiso/cowspace
+set +o pipefail
+yes '' | guest pacman -Sy --needed base-devel git
+set -o pipefail
+for pkgbuild in $(find .. -type f -name PKGBUILD)
+do
+  . $pkgbuild
+  set +u
+  for p in ${makedepends[@]} ${depends[@]}
+  do
+    set -u
+    set +e
+    # hardcoded fix for 'provides' resolution
+    [ $p = "java-runtime>=6" ] && p=jre7-openjdk
+    set +o pipefail
+    yes '' | guest pacman -Sy --needed $p
+    set -e
+    set -o pipefail
+  done
+done
+
+# sync repo to guest
+rsync -r -e "ssh $ssh_opts" ../ root@127.0.0.1:/tmp/scratch
+
+# build package on guest
+guest useradd pkg
+guest chown -R pkg:pkg /tmp/scratch
+guest su pkg -c "/tmp/scratch/ci/build-packages"
+
+# shutdown
+guest shutdown
+wait
