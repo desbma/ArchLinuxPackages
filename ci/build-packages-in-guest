@@ -61,7 +61,7 @@ set +o pipefail
 qemu-system-x86_64 $kvm_opt \
                    -m 2G \
                    -cdrom "$iso_file" \
-                   -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-xattr \
+                   -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-file \
                    -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
                    -serial "tcp:127.0.0.1:$SERIAL_TCP_PORT,server,nodelay" \
                    -nographic &> "$TMP_DIR/qemu.log" &
