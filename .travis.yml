@@ -9,6 +9,6 @@ addons:
   apt:
     packages:
       - sshpass
-      - qemu-kvm
+      - qemu-system
 script:
   - "./ci/build-packages-in-guest"

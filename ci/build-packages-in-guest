@@ -3,13 +3,14 @@
 set -o pipefail
 
 readonly ISO_DIR=${1:-$HOME/arch-linux}
-readonly PACKAGES_DIR=${1:-$HOME/arch-linux-pkg}
+readonly PACKAGES_DIR=${2:-$HOME/arch-linux-pkg}
 
 readonly SERIAL_TCP_PORT=11111
 readonly SSH_TCP_PORT=10022
 
 # auto cleanup
 at_exit() {
+  killall qemu-system-x86_64 || true
   set +u
   rm -Rf "$TMP_DIR"
   set -u
@@ -48,7 +49,6 @@ then
 fi
 
 # now start it
-sudo killall qemu-system-x86_64 || true
 mkdir -p "$PACKAGES_DIR"
 set +o pipefail
 if [ "$(lsmod | grep kvm)" ]
@@ -59,7 +59,7 @@ else
 fi
 set +o pipefail
 qemu-system-x86_64 $kvm_opt \
-                   -m 2G \
+                   -m 2560 \
                    -cdrom "$iso_file" \
                    -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-file \
                    -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
@@ -86,7 +86,7 @@ then
 else
   ( sleep 2s;
     echo -en "\t  console=ttyS0\r";
-    sleep 150s;
+    sleep 180s;
     echo "root";
     sleep 70s;
     echo "passwd";
@@ -96,8 +96,8 @@ else
     echo "a";
     sleep 5s;
     echo "systemctl start sshd";
-    sleep 15s ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
-  sleep 250s
+    sleep 30s ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
+  sleep 305s
 fi
 kill $! || true
 
@@ -107,7 +107,7 @@ if [ "$CI" -a "$TRAVIS" ]
 then
   set -u
   # travis environment lacks the random entropy needed to generate keys
-  # not to scripts kiddies looking for private keys in repos: don't waste your time, this one is useless
+  # note to scripts kiddies looking for private keys in repos: don't waste your time, this one is useless
   cp dummy-key $TMP_DIR/ssh_key
   cp dummy-key.pub $TMP_DIR/ssh_key.pub
   chmod 600 $TMP_DIR/ssh_key*
@@ -119,15 +119,16 @@ else
 fi
 ssh_opts="-i $TMP_DIR/ssh_key -p $SSH_TCP_PORT -o UserKnownHostsFile=$TMP_DIR/known_hosts -o StrictHostKeyChecking=no"
 sshpass -p a ssh-copy-id $ssh_opts root@127.0.0.1
-
-# install needed build dependencies
 guest() {
   ssh $ssh_opts root@127.0.0.1 $@
 }
+
+# install needed build dependencies
 guest mount -t 9p archpkg /var/cache/pacman/pkg
-guest mount -o remount,size=1G /run/archiso/cowspace
+guest mount -o remount,size=1536M /run/archiso/cowspace
 set +o pipefail
-yes '' | guest pacman -Sy --needed base-devel git
+yes '' | guest pacman -Syu
+yes '' | guest pacman -S --needed base-devel git
 set -o pipefail
 for pkgbuild in $(find .. -type f -name PKGBUILD)
 do
@@ -140,14 +141,22 @@ do
     # hardcoded fix for 'provides' resolution
     [ $p = "java-runtime>=6" ] && p=jre7-openjdk
     set +o pipefail
-    yes '' | guest pacman -Sy --needed $p
+    yes '' | guest pacman -S --needed $p
     set -e
     set -o pipefail
   done
 done
 
+# package cache cleanup
+set +o pipefail
+yes '' | guest pacman -Sc
+set -o pipefail
+
 # sync repo to guest
 rsync -r -e "ssh $ssh_opts" ../ root@127.0.0.1:/tmp/scratch
+
+# TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
+guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
 
 # build package on guest
 guest useradd pkg
