@@ -7,6 +7,14 @@ readonly PACKAGES_DIR=${2:-$HOME/arch-linux-pkg}
 
 readonly SERIAL_TCP_PORT=11111
 readonly SSH_TCP_PORT=10022
+set +u
+if [ "$CI" -a "$TRAVIS" ]
+then
+  readonly IS_TRAVIS=true
+else
+  readonly IS_TRAVIS=false
+fi
+set -u
 
 # auto cleanup
 at_exit() {
@@ -53,11 +61,11 @@ mkdir -p "$PACKAGES_DIR"
 set +o pipefail
 if [ "$(lsmod | grep kvm)" ]
 then
-  kvm_opt=-enable-kvm
+  kvm_opt="-enable-kvm -cpu host -smp $(python3 -c "print(min($(grep -c ^processor /proc/cpuinfo), 4))")"
 else
   kvm_opt=
 fi
-set +o pipefail
+set -o pipefail
 qemu-system-x86_64 $kvm_opt \
                    -m 2560 \
                    -cdrom "$iso_file" \
@@ -70,49 +78,18 @@ sleep 2s
 cat "$TMP_DIR/qemu.log"
 
 # boot guest & start sshd
-if [ "$kvm_opt" ]
-then
-  ( sleep 2s;
-    echo -en "\t  console=ttyS0\r";
-    sleep 20s;
-    echo "root";
-    sleep 0.5s;
-    echo "passwd";
-    sleep 0.5s;
-    echo "a";
-    sleep 0.5s;
-    echo -e "a\nsystemctl start sshd" ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
-  sleep 25s
-else
-  ( sleep 2s;
-    echo -en "\t  console=ttyS0\r";
-    sleep 180s;
-    echo "root";
-    sleep 70s;
-    echo "passwd";
-    sleep 5s;
-    echo "a";
-    sleep 5s;
-    echo "a";
-    sleep 5s;
-    echo "systemctl start sshd";
-    sleep 30s ) | telnet 127.0.0.1 $SERIAL_TCP_PORT &
-  sleep 305s
-fi
-kill $! || true
+./boot-arch-livecd.exp $SERIAL_TCP_PORT
+sleep 5s
 
 # generate & upload public key
-set +u
-if [ "$CI" -a "$TRAVIS" ]
+if $IS_TRAVIS
 then
-  set -u
   # travis environment lacks the random entropy needed to generate keys
   # note to scripts kiddies looking for private keys in repos: don't waste your time, this one is useless
   cp dummy-key $TMP_DIR/ssh_key
   cp dummy-key.pub $TMP_DIR/ssh_key.pub
   chmod 600 $TMP_DIR/ssh_key*
 else
-  set -u
   set +o pipefail
   yes '' | ssh-keygen -f $TMP_DIR/ssh_key
   set -o pipefail
@@ -123,13 +100,19 @@ guest() {
   ssh $ssh_opts root@127.0.0.1 $@
 }
 
+if $IS_TRAVIS
+then
+  # show guest/host capabilities
+  cat /proc/cpuinfo
+  guest cat /proc/cpuinfo
+  lsmod
+  guest lsmod
+fi
+
 # install needed build dependencies
 guest mount -t 9p archpkg /var/cache/pacman/pkg
 guest mount -o remount,size=1536M /run/archiso/cowspace
-set +o pipefail
-yes '' | guest pacman -Syu
-yes '' | guest pacman -S --needed base-devel git
-set -o pipefail
+packages="base-devel git"
 for pkgbuild in $(find .. -type f -name PKGBUILD)
 do
   . $pkgbuild
@@ -137,15 +120,14 @@ do
   for p in ${makedepends[@]} ${depends[@]}
   do
     set -u
-    set +e
     # hardcoded fix for 'provides' resolution
-    [ $p = "java-runtime>=6" ] && p=jre7-openjdk
-    set +o pipefail
-    yes '' | guest pacman -S --needed $p
-    set -e
-    set -o pipefail
+    [ $p = "java-runtime>=6" ] && p=jre7-openjdk || true
+    packages="$packages $p"
   done
 done
+set +o pipefail
+yes '' | guest pacman -Syu --needed $packages
+set -o pipefail
 
 # package cache cleanup
 set +o pipefail
@@ -153,16 +135,22 @@ yes '' | guest pacman -Sc
 set -o pipefail
 
 # sync repo to guest
-rsync -r -e "ssh $ssh_opts" ../ root@127.0.0.1:/tmp/scratch
+rsync -r -e "ssh $ssh_opts" --exclude '*.tar.*' ../ root@127.0.0.1:/tmp/scratch
 
-# TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
-guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
+# use all cores when building
+guest "sed -i 's/^#\(MAKEFLAGS=\"-j\)2/\1\$(nproc)/w /dev/stdout' /etc/makepkg.conf"
 
-# build package on guest
+if $IS_TRAVIS
+then
+  # TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
+  guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
+fi
+
+# build packages on guest
 guest useradd pkg
 guest chown -R pkg:pkg /tmp/scratch
 guest su pkg -c "/tmp/scratch/ci/build-packages"
 
 # shutdown
-guest shutdown
+guest shutdown -h now
 wait

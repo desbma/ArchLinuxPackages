@@ -1,4 +1,3 @@
-dist: trusty
 sudo: false
 language: c
 cache:
@@ -8,7 +7,8 @@ cache:
 addons:
   apt:
     packages:
-      - sshpass
+      - expect
       - qemu-system
+      - sshpass
 script:
   - "./ci/build-packages-in-guest"
