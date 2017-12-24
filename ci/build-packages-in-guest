@@ -59,12 +59,11 @@ fi
 
 # prepare cache dir
 mkdir -p "$PACKAGES_DIR"
-if [ -d /var/cache/pacman/pkg ]
+if [ -d /var/cache/pacman/pkg -a "$(grep overlay /proc/filesystems)" ]
 then
   mkdir "$TMP_DIR/pkg" "${PACKAGES_DIR}-workdir"
   sudo mount -t overlay overlay -o lowerdir=/var/cache/pacman/pkg,upperdir="$PACKAGES_DIR",workdir="${PACKAGES_DIR}-workdir" "$TMP_DIR/pkg"
   PACKAGES_DIR="$TMP_DIR/pkg"
-  read -p pause
 fi
 
 # now start it
