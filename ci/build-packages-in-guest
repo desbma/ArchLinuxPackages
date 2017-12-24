@@ -3,7 +3,7 @@
 set -o pipefail
 
 readonly ISO_DIR=${1:-$HOME/arch-linux}
-readonly PACKAGES_DIR=${2:-$HOME/arch-linux-pkg}
+PACKAGES_DIR=${2:-$HOME/arch-linux-pkg}
 
 readonly SERIAL_TCP_PORT=11111
 readonly SSH_TCP_PORT=10022
@@ -20,6 +20,7 @@ set -u
 at_exit() {
   killall qemu-system-x86_64 || true
   set +u
+  grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" && sudo rm -Rf "${PACKAGES_DIR}-workdir" || true
   rm -Rf "$TMP_DIR"
   set -u
 }
@@ -56,8 +57,17 @@ then
   fi
 fi
 
-# now start it
+# prepare cache dir
 mkdir -p "$PACKAGES_DIR"
+if [ -d /var/cache/pacman/pkg ]
+then
+  mkdir "$TMP_DIR/pkg" "${PACKAGES_DIR}-workdir"
+  sudo mount -t overlay overlay -o lowerdir=/var/cache/pacman/pkg,upperdir="$PACKAGES_DIR",workdir="${PACKAGES_DIR}-workdir" "$TMP_DIR/pkg"
+  PACKAGES_DIR="$TMP_DIR/pkg"
+  read -p pause
+fi
+
+# now start it
 set +o pipefail
 if [ "$(lsmod | grep kvm)" ]
 then
