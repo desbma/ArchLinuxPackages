@@ -2,8 +2,8 @@
 
 set -o pipefail
 
-readonly ISO_DIR=${1:-$HOME/arch-linux}
-PACKAGES_DIR=${2:-$HOME/arch-linux-pkg}
+readonly ISO_DIR=${1:-$HOME/.cache/ci/arch-pkg/iso}
+PACKAGES_DIR=${2:-$HOME/.cache/ci/arch-pkg/pkg}
 
 readonly SERIAL_TCP_PORT=11111
 readonly SSH_TCP_PORT=10022

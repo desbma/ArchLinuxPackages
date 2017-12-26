@@ -2,8 +2,7 @@ sudo: false
 language: c
 cache:
   directories:
-    - $HOME/arch-linux
-    - $HOME/arch-linux-pkg
+    - $HOME/.cache/ci/arch-pkg
 addons:
   apt:
     packages:
