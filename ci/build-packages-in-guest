@@ -59,6 +59,7 @@ fi
 
 # prepare cache dir
 mkdir -p "$PACKAGES_DIR"
+sudo modprobe -v overlay || true
 if [ -d /var/cache/pacman/pkg -a "$(grep overlay /proc/filesystems)" ]
 then
   mkdir "$TMP_DIR/pkg" "${PACKAGES_DIR}-workdir"
