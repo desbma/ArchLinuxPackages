@@ -35,6 +35,7 @@ cd "$(dirname -- $0)"
 curl -sL https://www.archlinux.org/download/ > "${TMP_DIR}/arch.html"
 last_iso_version=$(grep -F 'Current Release:' "${TMP_DIR}/arch.html" | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')
 iso_file="$ISO_DIR/archlinux-${last_iso_version}-x86_64.iso"
+mkdir -p "$ISO_DIR"
 
 if [ ! -f "$iso_file" ]
 then
