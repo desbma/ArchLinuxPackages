@@ -122,10 +122,38 @@ then
   guest lsmod
 fi
 
-# install needed build dependencies
+# mount package cache & increase it's size
 guest mount -t 9p archpkg /var/cache/pacman/pkg
 guest mount -o remount,size=1536M /run/archiso/cowspace
-packages="base-devel git"
+
+# update
+guest pacman -Syu --noconfirm --needed
+
+# makepkg deps & config
+guest pacman -S --noconfirm --needed base-devel
+guest "sed -i 's/^#\(MAKEFLAGS=\"-j\)2/\1\$(nproc)/w /dev/stdout' /etc/makepkg.conf"
+if $IS_TRAVIS
+then
+  # TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
+  guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
+fi
+guest useradd -m makepkg
+echo 'makepkg  ALL=(ALL:ALL) NOPASSWD: ALL' | guest tee -a /etc/sudoers
+
+# build & install pacaur
+for p in {cower,pacaur}
+do
+  guest mkdir /tmp/$p
+  curl "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$p" | guest "cat - > /tmp/$p/PKGBUILD"
+  guest ". /tmp/$p/PKGBUILD && "'depends=("${depends[@]/cower}") && pacman -S --noconfirm --needed ${makedepends[@]} ${depends[@]}'
+  guest chown -R makepkg:makepkg /tmp/$p
+  echo -e '#!/bin/bash\nexport PATH=$PATH:/usr/bin/core_perl\ncd '"/tmp/$p\nmakepkg --skippgpcheck --install  --noconfirm --needed PKGBUILD" | guest "cat - > /tmp/$p/escaping_is_hard && chmod +x /tmp/$p/escaping_is_hard"
+  guest su makepkg /tmp/$p/escaping_is_hard
+  guest rm -R /tmp/$p
+done
+
+# install needed build dependencies
+packages="git"
 for pkgbuild in $(find .. -type f -name PKGBUILD)
 do
   . $pkgbuild
@@ -138,27 +166,19 @@ do
     packages="$packages $p"
   done
 done
-guest pacman -Syu --noconfirm --needed $packages
+echo -e "#!/bin/bash\npacaur -S --noconfirm --noedit --needed $packages" | guest "cat - > /tmp/escaping_is_hard && chmod +x /tmp/escaping_is_hard"
+guest su makepkg /tmp/escaping_is_hard
 
 # package cache cleanup
 guest pacman -Sc --noconfirm
+guest rm -R /home/makepkg/.cache/pacaur
 
 # sync repo to guest
 rsync -r -e "ssh $ssh_opts" --exclude '*.tar.*' ../ root@127.0.0.1:/tmp/scratch
 
-# use all cores when building
-guest "sed -i 's/^#\(MAKEFLAGS=\"-j\)2/\1\$(nproc)/w /dev/stdout' /etc/makepkg.conf"
-
-if $IS_TRAVIS
-then
-  # TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
-  guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
-fi
-
 # build packages on guest
-guest useradd pkg
-guest chown -R pkg:pkg /tmp/scratch
-guest su pkg -c "/tmp/scratch/ci/build-packages"
+guest chown -R makepkg:makepkg /tmp/scratch
+guest su makepkg /tmp/scratch/ci/build-packages
 
 # shutdown
 guest shutdown -h now
