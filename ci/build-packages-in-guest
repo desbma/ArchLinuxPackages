@@ -136,14 +136,10 @@ do
     packages="$packages $p"
   done
 done
-set +o pipefail
-yes '' | guest pacman -Syu --needed $packages
-set -o pipefail
+guest pacman -Syu --noconfirm --needed $packages
 
 # package cache cleanup
-set +o pipefail
-yes '' | guest pacman -Sc
-set -o pipefail
+guest pacman -Sc --noconfirm
 
 # sync repo to guest
 rsync -r -e "ssh $ssh_opts" --exclude '*.tar.*' ../ root@127.0.0.1:/tmp/scratch
