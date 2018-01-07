@@ -7,7 +7,7 @@ set telnet_port [lindex $argv 0]
 
 spawn telnet 127.0.0.1 $telnet_port
 
-expect -exact "Boot the Arch Linux (x86_64) live medium"
+expect -exact "It allows you to install Arch Linux or perform system maintenance."
 send -- "	 console=ttyS0\r"
 
 expect -exact "archiso login: "

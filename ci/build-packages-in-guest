@@ -20,7 +20,8 @@ set -u
 at_exit() {
   killall qemu-system-x86_64 && sleep 1s || true
   set +u
-  grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" && sudo rm -Rf "${PACKAGES_DIR}-workdir" || true
+  grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" || true
+  rm -Rf "$OVERLAY_WORK_DIR"
   rm -Rf "$TMP_DIR"
   set -u
 }
@@ -65,6 +66,7 @@ if [ -d /var/cache/pacman/pkg -a "$(grep overlay /proc/filesystems)" ]
 then
   mkdir "$TMP_DIR/pkg" "${PACKAGES_DIR}-workdir"
   sudo mount -t overlay overlay -o lowerdir=/var/cache/pacman/pkg,upperdir="$PACKAGES_DIR",workdir="${PACKAGES_DIR}-workdir" "$TMP_DIR/pkg"
+  OVERLAY_WORK_DIR="${PACKAGES_DIR}-workdir"
   PACKAGES_DIR="$TMP_DIR/pkg"
 fi
 
