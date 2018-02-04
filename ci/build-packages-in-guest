@@ -126,6 +126,9 @@ fi
 guest mount -t 9p archpkg /var/cache/pacman/pkg
 guest mount -o remount,size=1536M /run/archiso/cowspace
 
+# update package source
+curl -sL 'https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on' | sed 's/^#\(Server.*\)$/\1/' | guest tee /etc/pacman.d/mirrorlist
+
 # update
 guest pacman -Syu --noconfirm --needed
 
