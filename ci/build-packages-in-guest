@@ -18,7 +18,8 @@ set -u
 
 # auto cleanup
 at_exit() {
-  killall qemu-system-x86_64 && sleep 1s || true
+  killall qemu qemu-system-x86_64 || true
+  sleep 5s
   set +u
   grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" || true
   rm -Rf "$OVERLAY_WORK_DIR"
@@ -47,7 +48,7 @@ then
   if [ "$(which transmission-cli)" ]
   then
     magnet_link=$(grep -Eo 'href="magnet:[^"]+"' "${TMP_DIR}/arch.html" | cut -d '"' -f 2)
-    echo -e "#/bin/sh\nkillall transmission-cli" > "$TMP_DIR/kill-transmission"
+    echo -e "#/bin/sh\nkillall transmission transmission-cli" > "$TMP_DIR/kill-transmission"
     chmod +x "$TMP_DIR/kill-transmission"
     transmission-cli -f "$TMP_DIR/kill-transmission" -w "$ISO_DIR" "$magnet_link" || true
   else
@@ -80,7 +81,7 @@ else
 fi
 set -o pipefail
 qemu-system-x86_64 $kvm_opt \
-                   -m 2560 \
+                   -m 3072 \
                    -cdrom "$iso_file" \
                    -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-file \
                    -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
@@ -124,7 +125,7 @@ fi
 
 # mount package cache & increase it's size
 guest mount -t 9p archpkg /var/cache/pacman/pkg
-guest mount -o remount,size=1536M /run/archiso/cowspace
+guest mount -o remount,size=2048M /run/archiso/cowspace
 
 # update package source
 curl -sL 'https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on' | sed 's/^#\(Server.*\)$/\1/' | guest tee /etc/pacman.d/mirrorlist
