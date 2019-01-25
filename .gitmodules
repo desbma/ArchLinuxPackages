@@ -25,3 +25,6 @@
 [submodule "sacad"]
 	path = sacad
 	url = https://aur.archlinux.org/sacad.git
+[submodule "debmirror"]
+	path = debmirror
+	url = https://aur.archlinux.org/debmirror.git
