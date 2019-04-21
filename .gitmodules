@@ -28,3 +28,6 @@
 [submodule "debmirror"]
 	path = debmirror
 	url = https://aur.archlinux.org/debmirror.git
+[submodule "pacman-hooks-desbma-git"]
+	path = pacman-hooks-desbma-git
+	url = https://aur.archlinux.org/pacman-hooks-desbma-git.git
