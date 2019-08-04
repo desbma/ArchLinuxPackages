@@ -12,6 +12,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Daemon to regulate fan speed according to hard drive temperature
+* [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
 * [mpv-scripts](https://aur.archlinux.org/packages/mpv-scripts/): Scripts for the mpv media player
 * [**pacman-hooks-desbma-git**](https://aur.archlinux.org/packages/pacman-hooks-desbma-git/): Various personal Pacman hooks
 * [**r128gain**](https://aur.archlinux.org/packages/r128gain/): Fast audio loudness (ReplayGain / R128) scanner & tagger

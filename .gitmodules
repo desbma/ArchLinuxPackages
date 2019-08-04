@@ -31,3 +31,6 @@
 [submodule "pacman-hooks-desbma-git"]
 	path = pacman-hooks-desbma-git
 	url = https://aur.archlinux.org/pacman-hooks-desbma-git.git
+[submodule "motd"]
+	path = motd
+	url = https://aur.archlinux.org/motd.git
