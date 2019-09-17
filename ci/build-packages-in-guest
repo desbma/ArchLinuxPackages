@@ -18,7 +18,7 @@ set -u
 
 # auto cleanup
 at_exit() {
-  killall qemu qemu-system-x86_64 || true
+  pkill qemu || true
   sleep 5s
   set +u
   grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" || true
@@ -48,7 +48,7 @@ then
   if [ "$(which transmission-cli)" ]
   then
     magnet_link=$(grep -Eo 'href="magnet:[^"]+"' "${TMP_DIR}/arch.html" | cut -d '"' -f 2)
-    echo -e "#/bin/sh\nkillall transmission transmission-cli" > "$TMP_DIR/kill-transmission"
+    echo -e "#/bin/sh\npkill transmission-cli" > "$TMP_DIR/kill-transmission"
     chmod +x "$TMP_DIR/kill-transmission"
     transmission-cli -f "$TMP_DIR/kill-transmission" -w "$ISO_DIR" "$magnet_link" || true
   else
@@ -144,8 +144,8 @@ fi
 guest useradd -m makepkg
 echo 'makepkg  ALL=(ALL:ALL) NOPASSWD: ALL' | guest tee -a /etc/sudoers
 
-# build & install pacaur
-for p in {cower,pacaur}
+# build & install yay
+for p in {yay-bin}
 do
   guest mkdir /tmp/$p
   curl "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$p" | guest "cat - > /tmp/$p/PKGBUILD"
@@ -170,12 +170,12 @@ do
     packages="$packages $p"
   done
 done
-echo -e "#!/bin/bash\npacaur -S --noconfirm --noedit --needed $packages" | guest "cat - > /tmp/escaping_is_hard && chmod +x /tmp/escaping_is_hard"
+echo -e "#!/bin/bash\nyes | yay -S --needed $packages" | guest "cat - > /tmp/escaping_is_hard && chmod +x /tmp/escaping_is_hard"
 guest su makepkg /tmp/escaping_is_hard
 
 # package cache cleanup
 guest pacman -Sc --noconfirm
-guest rm -R /home/makepkg/.cache/pacaur
+guest rm -R /home/makepkg/.cache/yay
 
 # sync repo to guest
 rsync -r -e "ssh $ssh_opts" --exclude '*.tar.*' ../ root@127.0.0.1:/tmp/scratch
