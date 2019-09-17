@@ -34,3 +34,6 @@
 [submodule "motd"]
 	path = motd
 	url = https://aur.archlinux.org/motd.git
+[submodule "i3-switch-tabs"]
+	path = i3-switch-tabs
+	url = https://aur.archlinux.org/i3-switch-tabs.git

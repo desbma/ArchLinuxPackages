@@ -10,6 +10,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
 * [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian package mirror tool
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
+* [i3-switch-tabs](https://aur.archlinux.org/packages/i3-switch-tabs/): Switch top-level tabs in i3-wm
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Daemon to regulate fan speed according to hard drive temperature
 * [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
