@@ -7,6 +7,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 
 * [abchr](https://aur.archlinux.org/packages/abchr/): Tool to do ABC/HR or ABX blind tests on audio files
 * [apetag](https://aur.archlinux.org/packages/apetag/): A command line APE 2.0 tagger
+* [bat-extras-git](https://aur.archlinux.org/packages/bat-extras-git/): Bash scripts that integrate bat with various command line tools
 * [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
 * [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian package mirror tool
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
