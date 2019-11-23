@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cat - << EOF
+Arch Linux Packages
+===================
+
+This is a directory of [the Arch Linux AUR packages I maintain](https://aur.archlinux.org/packages/?SeB=m&K=desbma).
+
+Packages in **bold** are the ones where I am also the author of the program.
+
+EOF
+
+for pkgbuild in $(find . -mindepth 2 -maxdepth 2 -type f -name PKGBUILD | sort)
+do
+  . ${pkgbuild}
+  if echo $url | grep -q '^https://github.com/desbma/'
+  then
+    echo -n "* [**${pkgname}**]"
+  else
+    echo -n "* [${pkgname}]"
+  fi
+  echo "(https://aur.archlinux.org/packages/${pkgname}/): ${pkgdesc}"
+done
