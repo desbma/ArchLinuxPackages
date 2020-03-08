@@ -37,3 +37,6 @@
 [submodule "bat-extras-git"]
 	path = bat-extras-git
 	url = https://aur.archlinux.org/bat-extras-git.git
+[submodule "zoxide"]
+	path = zoxide
+	url = https://aur.archlinux.org/zoxide.git
