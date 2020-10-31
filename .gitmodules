@@ -37,3 +37,6 @@
 [submodule "zoxide"]
 	path = zoxide
 	url = https://aur.archlinux.org/zoxide.git
+[submodule "cyanrip"]
+	path = cyanrip
+	url = https://aur.archlinux.org/cyanrip.git

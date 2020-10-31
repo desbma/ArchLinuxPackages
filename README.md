@@ -8,6 +8,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [abchr](https://aur.archlinux.org/packages/abchr/): Tool to do ABC/HR or ABX blind tests on audio files
 * [apetag](https://aur.archlinux.org/packages/apetag/): A command line APE 2.0 tagger
 * [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
+* [cyanrip](https://aur.archlinux.org/packages/cyanrip/): Fully featured CD ripping program
 * [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian partial mirror script, with ftp and package pool support
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Regulate fan speed according to hard drive temperature
