@@ -18,4 +18,5 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**pacman-hooks-desbma-git**](https://aur.archlinux.org/packages/pacman-hooks-desbma-git/): Various personal Pacman hooks
 * [**r128gain**](https://aur.archlinux.org/packages/r128gain/): Fast audio loudness (ReplayGain / R128) scanner & tagger
 * [**sacad**](https://aur.archlinux.org/packages/sacad/): Smart Automatic Cover Art Downloader
+* [ttf-icomoon-feather](https://aur.archlinux.org/packages/ttf-icomoon-feather/): Icomoon feather font
 * [zoxide](https://aur.archlinux.org/packages/zoxide/): A fast cd command that learns your habits

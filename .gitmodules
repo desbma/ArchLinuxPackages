@@ -40,3 +40,6 @@
 [submodule "cyanrip"]
 	path = cyanrip
 	url = https://aur.archlinux.org/cyanrip.git
+[submodule "ttf-icomoon-feather"]
+	path = ttf-icomoon-feather
+	url = https://aur.archlinux.org/ttf-icomoon-feather.git
