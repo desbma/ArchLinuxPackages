@@ -43,3 +43,6 @@
 [submodule "ttf-icomoon-feather"]
 	path = ttf-icomoon-feather
 	url = https://aur.archlinux.org/ttf-icomoon-feather.git
+[submodule "python-onvif-zeep"]
+	path = python-onvif-zeep
+	url = https://aur.archlinux.org/python-onvif-zeep.git
