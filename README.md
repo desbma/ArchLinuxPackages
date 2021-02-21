@@ -16,6 +16,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
 * [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
 * [**pacman-hooks-desbma-git**](https://aur.archlinux.org/packages/pacman-hooks-desbma-git/): Various personal Pacman hooks
+* [python-onvif-zeep-git](https://aur.archlinux.org/packages/python-onvif-zeep-git/): ONVIF Client Implementation in Python 
 * [python-onvif-zeep](https://aur.archlinux.org/packages/python-onvif-zeep/): ONVIF Client Implementation in Python 
 * [**r128gain**](https://aur.archlinux.org/packages/r128gain/): Fast audio loudness (ReplayGain / R128) scanner & tagger
 * [**sacad**](https://aur.archlinux.org/packages/sacad/): Smart Automatic Cover Art Downloader
