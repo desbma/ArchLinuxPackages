@@ -11,6 +11,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [cyanrip](https://aur.archlinux.org/packages/cyanrip/): Fully featured CD ripping program
 * [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian partial mirror script, with ftp and package pool support
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
+* [**gotify-desktop**](https://aur.archlinux.org/packages/gotify-desktop/): Small Gotify daemon to send messages as desktop notifications 
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Regulate fan speed according to hard drive temperature
 * [i3-switch-tabs](https://aur.archlinux.org/packages/i3-switch-tabs/): Switch top-level tabs in i3-wm
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard

@@ -49,3 +49,6 @@
 [submodule "python-onvif-zeep-git"]
 	path = python-onvif-zeep-git
 	url = https://aur.archlinux.org/python-onvif-zeep-git.git
+[submodule "gotify-desktop"]
+	path = gotify-desktop
+	url = https://aur.archlinux.org/gotify-desktop.git
