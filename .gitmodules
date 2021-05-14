@@ -25,9 +25,6 @@
 [submodule "debmirror"]
 	path = debmirror
 	url = https://aur.archlinux.org/debmirror.git
-[submodule "pacman-hooks-desbma-git"]
-	path = pacman-hooks-desbma-git
-	url = https://aur.archlinux.org/pacman-hooks-desbma-git.git
 [submodule "motd"]
 	path = motd
 	url = https://aur.archlinux.org/motd.git
@@ -52,3 +49,18 @@
 [submodule "gotify-desktop"]
 	path = gotify-desktop
 	url = https://aur.archlinux.org/gotify-desktop.git
+[submodule "xmonad-recompile-pacman-hook"]
+	path = xmonad-recompile-pacman-hook-git
+	url = https://aur.archlinux.org/xmonad-recompile-pacman-hook.git
+[submodule "sync-pacman-hook"]
+	path = sync-pacman-hook-git
+	url = https://aur.archlinux.org/sync-pacman-hook.git
+[submodule "reflector-pacman-hook"]
+	path = reflector-pacman-hook-git
+	url = https://aur.archlinux.org/reflector-pacman-hook.git
+[submodule "check-broken-packages-pacman-hook"]
+	path = check-broken-packages-pacman-hook-git
+	url = https://aur.archlinux.org/check-broken-packages-pacman-hook.git
+[submodule "pacdiff-pacman-hook"]
+	path = pacdiff-pacman-hook-git
+	url = https://aur.archlinux.org/pacdiff-pacman-hook.git
