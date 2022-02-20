@@ -1,0 +1,26 @@
+pkgbase = sacad
+	pkgdesc = Smart Automatic Cover Art Downloader
+	pkgver = 2.5.0
+	pkgrel = 1
+	url = https://github.com/desbma/sacad
+	arch = any
+	license = MPL2
+	makedepends = python-pip
+	depends = python
+	depends = python-aiohttp
+	depends = python-appdirs
+	depends = python-bitarray
+	depends = python-cssselect
+	depends = python-fake-useragent
+	depends = python-lxml
+	depends = python-mutagen
+	depends = python-pillow
+	depends = python-setuptools
+	depends = python-tqdm
+	depends = python-unidecode
+	optdepends = jpegoptim: for automatic lossless JPEG crunching
+	optdepends = optipng: for automatic lossless PNG crunching
+	source = sacad-2.5.0.tar.gz::https://github.com/desbma/sacad/archive/2.5.0.tar.gz
+	sha512sums = c9d49e38b02ed24eb45ac10479d9fb097d0f394bf9eecec0778b38551a45727c6008cc2d9ed2cfadab65d6c83133a89364bacf396f295d4d3ab00a239df2d602
+
+pkgname = sacad
