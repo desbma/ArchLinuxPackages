@@ -1,0 +1,32 @@
+#!/usr/bin/expect -f
+
+set force_conservative 1
+set timeout 300
+
+set telnet_port [lindex $argv 0]
+
+spawn telnet 127.0.0.1 $telnet_port
+
+expect -exact "It allows you to install Arch Linux or perform system maintenance."
+send -- "	 console=ttyS0\r"
+
+expect -exact "archiso login: "
+
+send -- "root\r"
+
+expect -exact "@archiso \[1m~ \[0m"
+expect -exact "# \[K\[?2004h"
+
+send -- "passwd\r"
+expect -exact "New password: "
+send -- "a\r"
+expect -exact "Retype new password: "
+send -- "a\r"
+
+expect -exact "@archiso \[1m~ \[0m"
+expect -exact "# \[K\[?2004h"
+
+send -- "systemctl start sshd\r"
+
+expect -exact "@archiso \[1m~ \[0m"
+expect -exact "# \[K\[?2004h"

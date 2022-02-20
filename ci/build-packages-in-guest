@@ -1,0 +1,189 @@
+#!/bin/bash -eux
+
+set -o pipefail
+
+readonly ISO_DIR=${1:-$HOME/.cache/ci/arch-pkg/iso}
+PACKAGES_DIR=${2:-$HOME/.cache/ci/arch-pkg/pkg}
+
+readonly SERIAL_TCP_PORT=11111
+readonly SSH_TCP_PORT=10022
+set +u
+if [ "$CI" -a "$TRAVIS" ]
+then
+  readonly IS_TRAVIS=true
+else
+  readonly IS_TRAVIS=false
+fi
+set -u
+
+# auto cleanup
+at_exit() {
+  pkill qemu || true
+  sleep 5s
+  set +u
+  grep "$PACKAGES_DIR" /proc/mounts && sudo umount "$PACKAGES_DIR" || true
+  rm -Rf "$OVERLAY_WORK_DIR"
+  rm -Rf "$TMP_DIR"
+  set -u
+}
+trap at_exit EXIT
+
+readonly TMP_DIR=$(mktemp -d /tmp/$(basename -- $0).XXXXXXXXXX)
+
+cd "$(dirname -- $0)"
+
+
+# check if we have latest iso
+curl -sL https://www.archlinux.org/download/ > "${TMP_DIR}/arch.html"
+last_iso_version=$(grep -F 'Current Release:' "${TMP_DIR}/arch.html" | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')
+iso_file="$ISO_DIR/archlinux-${last_iso_version}-x86_64.iso"
+mkdir -p "$ISO_DIR"
+
+if [ ! -f "$iso_file" ]
+then
+  # remove previous iso
+  rm -f "$ISO_DIR"/*.iso
+
+  # download latest iso
+  if [ "$(which transmission-cli)" ]
+  then
+    magnet_link=$(grep -Eo 'href="magnet:[^"]+"' "${TMP_DIR}/arch.html" | cut -d '"' -f 2)
+    echo -e "#/bin/sh\npkill transmission-cli" > "$TMP_DIR/kill-transmission"
+    chmod +x "$TMP_DIR/kill-transmission"
+    transmission-cli -f "$TMP_DIR/kill-transmission" -w "$ISO_DIR" "$magnet_link" || true
+  else
+    filename=$(basename $(grep -Eo "https://.*\.iso" "${TMP_DIR}/arch.html"))
+    set +o pipefail
+    mirror=$(grep -Eo 'https://.*iso.*/"' "${TMP_DIR}/arch.html" | head -n 3 | tail -n 1 | sed 's/"$//')
+    set -o pipefail
+    curl -fL "${mirror}${filename}" > "${ISO_DIR}/${filename}"
+  fi
+fi
+
+# prepare cache dir
+mkdir -p "$PACKAGES_DIR"
+sudo modprobe -v overlay || true
+if [ -d /var/cache/pacman/pkg -a "$(grep overlay /proc/filesystems)" ]
+then
+  mkdir "$TMP_DIR/pkg" "${PACKAGES_DIR}-workdir"
+  sudo mount -t overlay overlay -o lowerdir=/var/cache/pacman/pkg,upperdir="$PACKAGES_DIR",workdir="${PACKAGES_DIR}-workdir" "$TMP_DIR/pkg"
+  OVERLAY_WORK_DIR="${PACKAGES_DIR}-workdir"
+  PACKAGES_DIR="$TMP_DIR/pkg"
+fi
+
+# now start it
+set +o pipefail
+if [ "$(lsmod | grep kvm)" ]
+then
+  kvm_opt="-enable-kvm -cpu host -smp $(python3 -c "print(min($(grep -c ^processor /proc/cpuinfo), 4))")"
+else
+  kvm_opt=
+fi
+set -o pipefail
+qemu-system-x86_64 $kvm_opt \
+                   -m 3072 \
+                   -cdrom "$iso_file" \
+                   -virtfs local,path=$PACKAGES_DIR,mount_tag=archpkg,security_model=mapped-file \
+                   -net nic,model=virtio -net user,hostfwd=tcp::$SSH_TCP_PORT-:22 \
+                   -serial "tcp:127.0.0.1:$SERIAL_TCP_PORT,server,nodelay" \
+                   -nographic &> "$TMP_DIR/qemu.log" &
+qemu_pid=$!
+sleep 2s
+cat "$TMP_DIR/qemu.log"
+
+# boot guest & start sshd
+./boot-arch-livecd.exp $SERIAL_TCP_PORT
+sleep 5s
+
+# generate & upload public key
+if $IS_TRAVIS
+then
+  # travis environment lacks the random entropy needed to generate keys
+  # note to scripts kiddies looking for private keys in repos: don't waste your time, this one is useless
+  cp dummy-key $TMP_DIR/ssh_key
+  cp dummy-key.pub $TMP_DIR/ssh_key.pub
+  chmod 600 $TMP_DIR/ssh_key*
+else
+  set +o pipefail
+  yes '' | ssh-keygen -f $TMP_DIR/ssh_key
+  set -o pipefail
+fi
+ssh_opts="-i $TMP_DIR/ssh_key -p $SSH_TCP_PORT -o UserKnownHostsFile=$TMP_DIR/known_hosts -o StrictHostKeyChecking=no"
+sshpass -p a ssh-copy-id $ssh_opts root@127.0.0.1
+guest() {
+  ssh $ssh_opts root@127.0.0.1 $@
+}
+
+if $IS_TRAVIS
+then
+  # show guest/host capabilities
+  cat /proc/cpuinfo
+  guest cat /proc/cpuinfo
+  lsmod
+  guest lsmod
+fi
+
+# mount package cache & increase it's size
+guest mount -t 9p archpkg /var/cache/pacman/pkg
+guest mount -o remount,size=2048M /run/archiso/cowspace
+
+# update package source
+curl -sL 'https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on' | sed 's/^#\(Server.*\)$/\1/' | guest tee /etc/pacman.d/mirrorlist
+
+# update
+guest pacman -Syu --noconfirm --needed
+
+# makepkg deps & config
+guest pacman -S --noconfirm --needed base-devel
+guest "sed -i 's/^#\(MAKEFLAGS=\"-j\)2/\1\$(nproc)/w /dev/stdout' /etc/makepkg.conf"
+if $IS_TRAVIS
+then
+  # TODO fix weird "error:140943FC:SSL routines:ssl3_read_bytes:sslv3 alert bad record mac" errors on Travis
+  guest "sed -i 's/^\(.*http.*curl \)\(.*\)$/\1-v \2/w /dev/stdout' /etc/makepkg.conf"
+fi
+guest useradd -m makepkg
+echo 'makepkg  ALL=(ALL:ALL) NOPASSWD: ALL' | guest tee -a /etc/sudoers
+
+# build & install yay
+for p in {yay-bin}
+do
+  guest mkdir /tmp/$p
+  curl "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$p" | guest "cat - > /tmp/$p/PKGBUILD"
+  guest ". /tmp/$p/PKGBUILD && "'depends=("${depends[@]/cower}") && pacman -S --noconfirm --needed ${makedepends[@]} ${depends[@]}'
+  guest chown -R makepkg:makepkg /tmp/$p
+  echo -e '#!/bin/bash\nexport PATH=$PATH:/usr/bin/core_perl\ncd '"/tmp/$p\nmakepkg --skippgpcheck --install  --noconfirm --needed PKGBUILD" | guest "cat - > /tmp/$p/escaping_is_hard && chmod +x /tmp/$p/escaping_is_hard"
+  guest su makepkg /tmp/$p/escaping_is_hard
+  guest rm -R /tmp/$p
+done
+
+# install needed build dependencies
+packages="git"
+for pkgbuild in $(find .. -type f -name PKGBUILD)
+do
+  . $pkgbuild
+  set +u
+  for p in ${makedepends[@]} ${depends[@]}
+  do
+    set -u
+    # hardcoded fix for 'provides' resolution
+    [ $p = "java-runtime>=6" ] && p=jre7-openjdk || true
+    packages="$packages $p"
+  done
+done
+echo -e "#!/bin/bash\nyes | yay -S --needed $packages" | guest "cat - > /tmp/escaping_is_hard && chmod +x /tmp/escaping_is_hard"
+guest su makepkg /tmp/escaping_is_hard
+
+# package cache cleanup
+guest pacman -Sc --noconfirm
+guest rm -R /home/makepkg/.cache/yay
+
+# sync repo to guest
+rsync -r -e "ssh $ssh_opts" --exclude '*.tar.*' ../ root@127.0.0.1:/tmp/scratch
+
+# build packages on guest
+guest chown -R makepkg:makepkg /tmp/scratch
+guest su makepkg /tmp/scratch/ci/build-packages
+
+# shutdown
+guest shutdown -h now
+wait
