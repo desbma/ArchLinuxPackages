@@ -1,8 +1,9 @@
 #!/bin/bash
 
 cat - << EOF
-Arch Linux Packages
-===================
+# Arch Linux Packages
+
+[![Build status](https://github.com/desbma/ArchLinuxPackages/actions/workflows/ci.yml/badge.svg)](https://github.com/desbma/ArchLinuxPackages/actions)
 
 This is a directory of [the Arch Linux AUR packages I maintain](https://aur.archlinux.org/packages/?SeB=m&K=desbma).
 

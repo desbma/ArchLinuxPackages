@@ -1,0 +1,351 @@
+on: [push, pull_request]
+
+jobs:
+  abchr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: abchr
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: abchr
+
+  apetag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: apetag
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: apetag
+
+  bdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: bdf
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: bdf
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: bdf
+          command: "bdf -h"
+
+  bpm-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: bpm-tools
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: bpm-tools
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: bpm-tools
+          command: "bpm -h"
+
+  check-broken-packages-pacman-hook-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: check-broken-packages-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: check-broken-packages-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: check-broken-packages-pacman-hook-git
+          command: "check-broken-packages"
+
+  cyanrip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: cyanrip
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: cyanrip
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: cyanrip
+          command: "cyanrip -h"
+
+  debmirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: debmirror
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: debmirror
+
+  flexo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: flexo
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: flexo
+
+  gmsl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: gmsl
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: gmsl
+
+  gotify-desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: gotify-desktop
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: gotify-desktop
+
+  hddfancontrol:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: hddfancontrol
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: hddfancontrol
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: hddfancontrol
+          command: "hddfancontrol -h"
+
+  imgur-uploader-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: imgur-uploader-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: imgur-uploader-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: imgur-uploader-git
+          command: "imgur -h"
+
+  motd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: motd
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: motd
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: motd
+          command: "motd -h"
+
+  pacdiff-pacman-hook-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: pacdiff-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: pacdiff-pacman-hook-git
+
+  python-onvif-zeep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: python-onvif-zeep
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: python-onvif-zeep
+
+  python-onvif-zeep-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: python-onvif-zeep-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: python-onvif-zeep-git
+
+  r128gain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: r128gain
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: r128gain
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: r128gain
+          command: "r128gain -h"
+
+  reflector-pacman-hook-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: reflector-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: reflector-pacman-hook-git
+
+  rsop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: rsop
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: rsop
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: rsop
+          command: "rsop -h"
+
+  sacad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: sacad
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: sacad
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: sacad
+          command: "sacad -h && sacad_r -h"
+
+  sync-pacman-hook-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: sync-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: sync-pacman-hook-git
+
+  ttf-icomoon-feather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: ttf-icomoon-feather
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: ttf-icomoon-feather
+
+  xmonad-recompile-pacman-hook-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: xmonad-recompile-pacman-hook-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: xmonad-recompile-pacman-hook-git
