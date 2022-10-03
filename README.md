@@ -7,6 +7,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 
 * [abchr](https://aur.archlinux.org/packages/abchr/): Tool to do ABC/HR or ABX blind tests on audio files
 * [apetag](https://aur.archlinux.org/packages/apetag/): A command line APE 2.0 tagger
+* [**bdf**](https://aur.archlinux.org/packages/bdf/): Btrfs Duplicate Finder
 * [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
 * [**check-broken-packages-pacman-hook-git**](https://aur.archlinux.org/packages/check-broken-packages-pacman-hook-git/): Pacman hook to check for broken packages
 * [cyanrip](https://aur.archlinux.org/packages/cyanrip/): Fully featured CD ripping program
@@ -16,7 +17,6 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**gotify-desktop**](https://aur.archlinux.org/packages/gotify-desktop/): Small Gotify daemon to send messages as desktop notifications 
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Regulate fan speed according to hard drive temperature
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
-* [lf-xdg](https://aur.archlinux.org/packages/lf-xdg/): A terminal file manager inspred by ranger written in Go, with patch to use XDG locations for runtime files
 * [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
 * [**pacdiff-pacman-hook-git**](https://aur.archlinux.org/packages/pacdiff-pacman-hook-git/): Pacman hook to review .pacnew files automatically
 * [python-onvif-zeep-git](https://aur.archlinux.org/packages/python-onvif-zeep-git/): ONVIF Client Implementation in Python 
