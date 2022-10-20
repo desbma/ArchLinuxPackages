@@ -1,7 +1,7 @@
 pkgbase = pacdiff-pacman-hook-git
 	pkgdesc = Pacman hook to review .pacnew files automatically
 	pkgver = r81.9d5f298
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/desbma/pacman-hooks
 	arch = any
 	license = GPL
