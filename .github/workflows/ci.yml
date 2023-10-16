@@ -306,6 +306,24 @@ jobs:
           target: pkgbuild
           pkgname: sync-pacman-hook-git
 
+  sysstat-mail-report-git:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: srcinfo
+          pkgname: sysstat-mail-report-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: pkgbuild
+          pkgname: sysstat-mail-report-git
+      - uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: run
+          pkgname: sysstat-mail-report-git
+          command: "sysstat-mail-report -h"
+
   ttf-icomoon-feather:
     runs-on: ubuntu-latest
     steps:
