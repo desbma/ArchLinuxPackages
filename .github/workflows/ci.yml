@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: abchr
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: abchr
@@ -18,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: apetag
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: apetag
@@ -31,15 +31,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: bdf
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: bdf
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: bdf
@@ -49,15 +49,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: bpm-tools
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: bpm-tools
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: bpm-tools
@@ -67,15 +67,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: check-broken-packages-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: check-broken-packages-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: check-broken-packages-pacman-hook-git
@@ -85,15 +85,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: cyanrip
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: cyanrip
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: cyanrip
@@ -103,11 +103,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: debmirror
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: debmirror
@@ -116,11 +116,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: flexo
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: flexo
@@ -129,11 +129,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: gmsl
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: gmsl
@@ -142,11 +142,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: gotify-desktop
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: gotify-desktop
@@ -155,15 +155,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: hddfancontrol
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: hddfancontrol
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: hddfancontrol
@@ -173,15 +173,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: imgur-uploader-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: imgur-uploader-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: imgur-uploader-git
@@ -191,15 +191,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: motd
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: motd
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: motd
@@ -209,11 +209,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: pacdiff-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: pacdiff-pacman-hook-git
@@ -222,11 +222,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: python-onvif-zeep
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: python-onvif-zeep
@@ -235,11 +235,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: python-onvif-zeep-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: python-onvif-zeep-git
@@ -248,11 +248,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: reflector-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: reflector-pacman-hook-git
@@ -261,15 +261,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: rsop
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: rsop
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: rsop
@@ -279,15 +279,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: sacad
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: sacad
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: sacad
@@ -297,15 +297,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: stfed
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: stfed
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: stfed
@@ -315,11 +315,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: sync-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: sync-pacman-hook-git
@@ -328,15 +328,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: sysstat-mail-report-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: sysstat-mail-report-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
           pkgname: sysstat-mail-report-git
@@ -346,11 +346,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: ttf-icomoon-feather
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: ttf-icomoon-feather
@@ -359,11 +359,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
           pkgname: xmonad-recompile-pacman-hook-git
-      - uses: 2m/arch-pkgbuild-builder@v1.18
+      - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
           pkgname: xmonad-recompile-pacman-hook-git
