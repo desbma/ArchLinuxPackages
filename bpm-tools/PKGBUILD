@@ -1,5 +1,6 @@
 # Maintainer: desbma
 # Contributor: after
+# shellcheck disable=SC2034,SC2148,SC2154,SC2164
 pkgname=bpm-tools
 pkgver=0.3
 pkgrel=2

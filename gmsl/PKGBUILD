@@ -1,4 +1,5 @@
 # Maintainer: desbma
+# shellcheck disable=SC2034,SC2148,SC2154,SC2164
 pkgname=gmsl
 pkgver=1.1.9
 pkgrel=1

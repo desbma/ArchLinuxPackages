@@ -1,4 +1,5 @@
 # Maintainer: desbma
+# shellcheck disable=SC2034,SC2148,SC2154,SC2164
 pkgname=python-onvif-zeep-git
 _gitname=python-onvif-zeep
 pkgver=r115.d549eed

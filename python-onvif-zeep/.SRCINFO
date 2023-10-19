@@ -13,4 +13,3 @@ pkgbase = python-onvif-zeep
 	sha512sums = 148eb31b03aa980b3b026c1a0127d1263aabeadca85444c70d9df4874415ec4cb5f0449fa1232c40bced92733116d43bbaeef58ea1689080d9dae04ce99ac31c
 
 pkgname = python-onvif-zeep
-
