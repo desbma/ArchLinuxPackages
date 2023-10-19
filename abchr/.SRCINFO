@@ -4,7 +4,7 @@ pkgbase = abchr
 	pkgrel = 3
 	url = http://www.rarewares.org/others.php#java-abc-hr
 	arch = any
-	license = LGPL
+	license = LGPL2.1
 	depends = bash
 	depends = java-runtime>=6
 	optdepends = faad2: AAC (MP4, M4A) decoding support

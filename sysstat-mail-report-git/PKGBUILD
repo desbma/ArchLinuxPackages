@@ -8,7 +8,7 @@ pkgdesc='Send periodic email reports with graphs plotted from sysstat data'
 arch=('any')
 _gitname='sysstat_mail_report'
 url="https://github.com/desbma/${_gitname}"
-license=('LGPL')
+license=('LGPL2.1')
 depends=('gnuplot' 'python' 'smtp-forwarder' 'sysstat')
 optdepends=('scour: for lossless SVG crunching'
             'optipng: for lossless PNG crunching'
