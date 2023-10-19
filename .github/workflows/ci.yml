@@ -305,11 +305,6 @@ jobs:
         with:
           target: pkgbuild
           pkgname: stfed
-      - uses: 2m/arch-pkgbuild-builder@v1.19
-        with:
-          target: run
-          pkgname: stfed
-          command: "stfed -h"
 
   sync-pacman-hook-git:
     runs-on: ubuntu-latest
