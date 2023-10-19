@@ -13,7 +13,7 @@ optdepends=('xsel: Copy URL to clipboard'
             'xclip: Alternative to copy URL to clipboard')
 conflicts=('imgur')
 source=("git+https://github.com/tangphillip/${_gitname}")
-md5sums=('SKIP')
+sha512sums=('SKIP')
 
 pkgver() {
     cd "${srcdir}/${_gitname}"

@@ -11,6 +11,6 @@ pkgbase = imgur-uploader-git
 	optdepends = xclip: Alternative to copy URL to clipboard
 	conflicts = imgur
 	source = git+https://github.com/tangphillip/Imgur-Uploader
-	md5sums = SKIP
+	sha512sums = SKIP
 
 pkgname = imgur-uploader-git

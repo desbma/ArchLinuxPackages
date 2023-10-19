@@ -8,6 +8,6 @@ pkgbase = sync-pacman-hook-git
 	makedepends = git
 	conflicts = pacman-hooks-desbma-git
 	source = git+https://github.com/desbma/pacman-hooks
-	md5sums = SKIP
+	sha512sums = SKIP
 
 pkgname = sync-pacman-hook-git

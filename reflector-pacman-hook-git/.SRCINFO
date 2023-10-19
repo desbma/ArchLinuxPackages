@@ -9,6 +9,6 @@ pkgbase = reflector-pacman-hook-git
 	depends = reflector
 	conflicts = pacman-hooks-desbma-git
 	source = git+https://github.com/desbma/pacman-hooks
-	md5sums = SKIP
+	sha512sums = SKIP
 
 pkgname = reflector-pacman-hook-git

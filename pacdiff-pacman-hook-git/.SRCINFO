@@ -11,6 +11,6 @@ pkgbase = pacdiff-pacman-hook-git
 	depends = pacman-contrib
 	conflicts = pacman-hooks-desbma-git
 	source = git+https://github.com/desbma/pacman-hooks
-	md5sums = SKIP
+	sha512sums = SKIP
 
 pkgname = pacdiff-pacman-hook-git
