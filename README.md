@@ -25,6 +25,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**reflector-pacman-hook-git**](https://aur.archlinux.org/packages/reflector-pacman-hook-git/): Pacman hook to automatically update Pacman mirrorlist using reflector
 * [**rsop**](https://aur.archlinux.org/packages/rsop/): Simple, fast & configurable tool to open and preview files
 * [**sacad**](https://aur.archlinux.org/packages/sacad/): Smart Automatic Cover Art Downloader
+* [**shh**](https://aur.archlinux.org/packages/shh/): Automatic systemd service hardening guided by strace profiling
 * [**stfed**](https://aur.archlinux.org/packages/stfed/): Synthing folder event daemon
 * [**sync-pacman-hook-git**](https://aur.archlinux.org/packages/sync-pacman-hook-git/): Pacman hook to sync filesystem
 * [**sysstat-mail-report-git**](https://aur.archlinux.org/packages/sysstat-mail-report-git/): Send periodic email reports with graphs plotted from sysstat data
