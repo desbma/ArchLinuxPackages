@@ -293,6 +293,24 @@ jobs:
           pkgname: sacad
           command: "sacad -h && sacad_r -h"
 
+  shh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: 2m/arch-pkgbuild-builder@v1.19
+        with:
+          target: srcinfo
+          pkgname: shh
+      - uses: 2m/arch-pkgbuild-builder@v1.19
+        with:
+          target: pkgbuild
+          pkgname: shh
+      - uses: 2m/arch-pkgbuild-builder@v1.19
+        with:
+          target: run
+          pkgname: shh
+          command: "shh -h"
+
   stfed:
     runs-on: ubuntu-latest
     steps:
