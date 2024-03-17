@@ -257,23 +257,23 @@ jobs:
           target: pkgbuild
           pkgname: reflector-pacman-hook-git
 
-  rsop:
+  rsop-open:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: srcinfo
-          pkgname: rsop
+          pkgname: rsop-open
       - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: pkgbuild
-          pkgname: rsop
+          pkgname: rsop-open
       - uses: 2m/arch-pkgbuild-builder@v1.19
         with:
           target: run
-          pkgname: rsop
-          command: "rsop -h"
+          pkgname: rsop-open
+          command: "rsop-open -h"
 
   sacad:
     runs-on: ubuntu-latest
