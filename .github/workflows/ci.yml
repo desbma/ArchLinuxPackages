@@ -99,19 +99,6 @@ jobs:
           pkgname: cyanrip
           command: "cyanrip -h"
 
-  debmirror:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.19
-        with:
-          target: srcinfo
-          pkgname: debmirror
-      - uses: 2m/arch-pkgbuild-builder@v1.19
-        with:
-          target: pkgbuild
-          pkgname: debmirror
-
   flexo:
     runs-on: ubuntu-latest
     steps:

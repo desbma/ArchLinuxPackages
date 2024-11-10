@@ -12,7 +12,6 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [bpm-tools](https://aur.archlinux.org/packages/bpm-tools/): Tools to calculate tempo of audio tracks, display graphs and tag files with bpm value
 * [**check-broken-packages-pacman-hook-git**](https://aur.archlinux.org/packages/check-broken-packages-pacman-hook-git/): Pacman hook to check for broken packages
 * [cyanrip](https://aur.archlinux.org/packages/cyanrip/): Fully featured CD ripping program
-* [debmirror](https://aur.archlinux.org/packages/debmirror/): Debian partial mirror script, with ftp and package pool support
 * [flexo](https://aur.archlinux.org/packages/flexo/): A central pacman cache
 * [gmsl](https://aur.archlinux.org/packages/gmsl/): GNU Make Standard Library: extra functions to extend functionality of Makefiles
 * [**gotify-desktop**](https://aur.archlinux.org/packages/gotify-desktop/): Small Gotify daemon to send messages as desktop notifications 
