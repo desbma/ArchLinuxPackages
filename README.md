@@ -20,7 +20,6 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
 * [**pacdiff-pacman-hook-git**](https://aur.archlinux.org/packages/pacdiff-pacman-hook-git/): Pacman hook to review .pacnew files automatically
 * [python-onvif-zeep-git](https://aur.archlinux.org/packages/python-onvif-zeep-git/): ONVIF Client Implementation in Python 
-* [python-onvif-zeep](https://aur.archlinux.org/packages/python-onvif-zeep/): ONVIF Client Implementation in Python 
 * [**reflector-pacman-hook-git**](https://aur.archlinux.org/packages/reflector-pacman-hook-git/): Pacman hook to automatically update Pacman mirrorlist using reflector
 * [**rsop-open**](https://aur.archlinux.org/packages/rsop-open/): Simple, fast & configurable tool to open and preview files
 * [**sacad**](https://aur.archlinux.org/packages/sacad/): Smart Automatic Cover Art Downloader
