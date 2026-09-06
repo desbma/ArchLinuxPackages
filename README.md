@@ -26,5 +26,4 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**stfed**](https://aur.archlinux.org/packages/stfed/): Synthing folder event daemon
 * [**sync-pacman-hook-git**](https://aur.archlinux.org/packages/sync-pacman-hook-git/): Pacman hook to sync filesystem
 * [**sysstat-mail-report-git**](https://aur.archlinux.org/packages/sysstat-mail-report-git/): Send periodic email reports with graphs plotted from sysstat data
-* [ttf-icomoon-feather](https://aur.archlinux.org/packages/ttf-icomoon-feather/): Icomoon feather font
 * [**xmonad-recompile-pacman-hook-git**](https://aur.archlinux.org/packages/xmonad-recompile-pacman-hook-git/): Pacman hook to recompile Xmonad config and avoid the infamous black screen

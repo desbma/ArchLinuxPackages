@@ -316,19 +316,6 @@ jobs:
           pkgname: sysstat-mail-report-git
           command: "sysstat-mail-report -h"
 
-  ttf-icomoon-feather:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: 2m/arch-pkgbuild-builder@v1.19
-        with:
-          target: srcinfo
-          pkgname: ttf-icomoon-feather
-      - uses: 2m/arch-pkgbuild-builder@v1.19
-        with:
-          target: pkgbuild
-          pkgname: ttf-icomoon-feather
-
   xmonad-recompile-pacman-hook-git:
     runs-on: ubuntu-latest
     steps:
