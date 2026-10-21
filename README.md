@@ -17,6 +17,7 @@ Packages in **bold** are the ones where I am also the author of the program.
 * [**gotify-desktop**](https://aur.archlinux.org/packages/gotify-desktop/): Small Gotify daemon to send messages as desktop notifications 
 * [**hddfancontrol**](https://aur.archlinux.org/packages/hddfancontrol/): Regulate fan speed according to hard drive temperature
 * [imgur-uploader-git](https://aur.archlinux.org/packages/imgur-uploader-git/): A script that uploads an image to imgur and copies the image URL to the clipboard
+* [mgcarpet](https://aur.archlinux.org/packages/mgcarpet/): Engine reimplementation of Magic Carpet 1 & 2 (requires original game data)
 * [**motd**](https://aur.archlinux.org/packages/motd/): Dynamically generate system information for MOTD SSH banner
 * [**pacdiff-pacman-hook-git**](https://aur.archlinux.org/packages/pacdiff-pacman-hook-git/): Pacman hook to review .pacnew files automatically
 * [**reflector-pacman-hook-git**](https://aur.archlinux.org/packages/reflector-pacman-hook-git/): Pacman hook to automatically update Pacman mirrorlist using reflector
